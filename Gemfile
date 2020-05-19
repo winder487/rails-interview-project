@@ -35,6 +35,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  # Brings RSpec functionality to rails
+  gem 'rspec-rails', '~> 3.9.1'
+  # ffaker's documentation says to add it to the development and test groups
+  gem 'ffaker'
 end
 
 group :development do
@@ -45,5 +49,11 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  # adds some very nice syntatic sugar for more human-readable tests
+  gem 'shoulda-matchers', '~> 3.1.3'
+  # adds a nice replacement for test fixtures
+  gem 'factory_bot_rails', '~> 4.11.1'
+end
+
 gem 'markdown-rails'
-gem 'ffaker'
