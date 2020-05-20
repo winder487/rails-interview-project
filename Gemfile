@@ -54,6 +54,8 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1.3'
   # adds a nice replacement for test fixtures
   gem 'factory_bot_rails', '~> 4.11.1'
+  # maintains a consistent state in the test database by cleaning it up between suite runs
+  gem 'database_cleaner'
 end
 
 gem 'markdown-rails'

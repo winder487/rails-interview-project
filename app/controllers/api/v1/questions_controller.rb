@@ -4,22 +4,45 @@ class Api::V1::QuestionsController < ApplicationController
   after_action :track_api_request
 
   def index
-    render json: Question.not_private.to_json(include: :answers)
+    render json: Question.not_private.to_json(
+    # we want to include the names of our askers and answerers
+    include: [
+      # so we include the user attributed to our question (asker)
+      {
+        user: {
+          only: [:id, :name]
+        }
+      },
+      # and the user attributed to each answer (answerer)
+      # which means we need to include the answers in the first place
+      {
+        answers: {
+          include: {
+            user: {
+              only: [:id, :name]
+            }
+          # this seeks to remove the redundant user_id field
+          # since we're already pulling the user id and name in a pair (for answers)
+          }, except: :user_id
+        }
+      }
+    # this seeks to remove the redundant user_id field but for questions
+    ], except: :user_id)
   end
 
   private
 
+  # pretty much all of this authentication stuff should be in a helper class so it can be reused
   def authenticate
     return unless validate_parameters
 
     api_key = http_api_key(request.headers)
     unauthorized_error('Missing API Key') and return unless api_key
     real_api = Tenant.find(params[:tenantId]).api_key
-    puts real_api
     authorized = Tenant.find(params[:tenantId]).api_key == api_key
     unauthorized_error('Invalid API Key') and return unless authorized
   rescue ActiveRecord::RecordNotFound => error
-    render json: { error: error.message }, status: :unauthorized
+    render json: { error: error.message }, status: :not_found
   end
 
   def validate_parameters

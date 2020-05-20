@@ -1,28 +1,24 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To get the project running:
+1. Install rvm: `\curl -sSL https://get.rvm.io | bash -s stable --ruby`
+2. Install homebrew: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
+3. Install a legacy version of openssl (compatible with ruby 2.2.3) using homebrew: `brew install rbenv/tap/openssl@1.0`
+4. Install the ruby version specified in the project's .ruby-version file using the legacy open ssl version:
+' rvm install 2.2.3 -C --with-openssl-dir=`brew --prefix openssl@1.0` '
+5. Install the latest version of bundler compatible with ruby 2.2.3: `gem install bundler -v 1.17.3`
+6. Run bundler: `bundle install`
+7. Run the rake task for setting up the database: `bundle exec rake db:setup`
+8. Run the rake task for performing migrations: `bundle exec rake db:migrate`
+9. Start rails: `rails s`
 
-Things you may want to cover:
+You can also run my test suite with `bundle exec rake`
 
-* Ruby version
+Thoughts:
 
-* System dependencies
+For this project, I decided to just keep the existing Ruby version (2.2.3) to get up and running faster.
+There are clear pros and cons to this approach, but I just wanted to get moving on the project because I knew there was a lot to learn.
 
-* Configuration
+I considered bringing in Bootstrap to help make the Dashboard welcome page look a lot nicer, but I elected not to for time, sorry about that.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+I also started off trying to do a TDD thing where I'd write the specs first, but that slowed me down significantly and in the end I elected not to.

@@ -7,9 +7,16 @@ RSpec.describe Question, type: :model do
   it { should belong_to(:user)}
 
   describe 'scope not_private' do
-    it 'does not return private questions' do
-      question = Question.not_private
-      expect(question.none? {|q| q.private}).to be(true)
+    before do
+      # creating instances of a test object with FactoryBot to test the scope
+      # one public
+      create(:question)
+      # the other private
+      create(:question, private: true)
+    end
+
+    it 'does not return questions marked private' do
+      expect(Question.not_private.none? {|q| q.private}).to be(true)
     end
   end
 end
