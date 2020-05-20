@@ -1,0 +1,43 @@
+<% dashboard = {
+  "Users": @user_count,
+  "Questions": @question_count,
+  "Answers": @answer_count
+} %>
+
+<h3>Dashboard</h3>
+<div class="main">
+  <table>
+    <thead>
+      <tr>
+        <% dashboard.keys.each do |key| %>
+          <th><%= key.to_s %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% dashboard.values.each do |value| %>
+          <td><%= value %></td>
+        <% end %>
+      <tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Tenant Id</th>
+        <th>Name</th>
+        <th>Api Requests</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tenants.each do |tenant| %>
+        <tr>
+          <td><%= tenant.id %></td>
+          <td><%= tenant.name %></td>
+          <td><%= tenant.api_requests %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</body>

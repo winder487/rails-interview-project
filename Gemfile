@@ -50,7 +50,7 @@ group :development do
 end
 
 group :test do
-  # adds some very nice syntatic sugar for more human-readable tests
+  # adds some very nice syntatic sugar for more human-readable rails-specific tests
   gem 'shoulda-matchers', '~> 3.1.3'
   # adds a nice replacement for test fixtures
   gem 'factory_bot_rails', '~> 4.11.1'

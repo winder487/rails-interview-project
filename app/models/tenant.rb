@@ -1,6 +1,11 @@
 class Tenant < ActiveRecord::Base
 
   before_create :generate_api_key
+
+  def track_tenant_request
+    self.api_requests += 1
+    save!
+  end
   
   private
 
